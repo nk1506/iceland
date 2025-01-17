@@ -94,7 +94,7 @@ schema = StructType([
 # Create an iceberg table with csv schema.
 spark.sql(
     f"""
-CREATE OR REPLACE TABLE rest.default.gdlet_table (
+CREATE OR REPLACE TABLE rest.spark.gdlet_table (
     id string,
     date int,
     year_month int,
@@ -167,15 +167,15 @@ for arg in sys.argv[1:]:
     df.createOrReplaceTempView("temp_table")
     # Insert data from the temporary table into the permanent table
     spark.sql("""
-        INSERT INTO rest.default.gdlet_table
+        INSERT INTO rest.spark.gdlet_table
         SELECT * FROM temp_table
     """)
 
 # Verify data insertion
 print("Displaying few records")
-spark.sql("SELECT * FROM rest.default.gdlet_table").show()
+spark.sql("SELECT * FROM rest.spark.gdlet_table").show()
 
 print("Total count of records")
-spark.sql("SELECT count(*) as total_count FROM rest.default.gdlet_table").show()
+spark.sql("SELECT count(*) as total_count FROM rest.spark.gdlet_table").show()
 
 print("Finished gdelt tables")

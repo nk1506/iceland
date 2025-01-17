@@ -83,3 +83,26 @@ services:
     links:
       - rest:rest
       - minio:minio
+
+  flink-iceberg:
+    build: flink
+    networks:
+      rest_bridge:
+    ports:
+      - "8081:8081"
+    expose:
+      - 8081
+    depends_on:
+      - rest
+      - minio
+    environment:
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=password
+      - AWS_REGION=us-east-1
+      - S3_ENDPOINT=http://minio:9000
+      - S3_BUCKET=s3://icebergdata/demo
+      - REST_CATALOG_URL=http://rest:8181
+      - S3_PATH_STYLE_ACCESS=true
+    links:
+      - rest:rest
+      - minio:minio

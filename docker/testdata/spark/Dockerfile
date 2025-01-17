@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.9-bullseye
+FROM python:3.10-bullseye
 
 RUN apt-get -qq update && \
     apt-get -qq install -y --no-install-recommends sudo curl openjdk-11-jdk && \
@@ -27,7 +27,7 @@ ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9.7-src.zip:$
 RUN mkdir -p ${HADOOP_HOME} && mkdir -p ${SPARK_HOME} && mkdir -p /home/iceberg/spark-events
 WORKDIR ${SPARK_HOME}
 
-ENV SPARK_VERSION=3.5.3
+ENV SPARK_VERSION=3.5.4
 ENV ICEBERG_SPARK_RUNTIME_VERSION=3.5_2.12
 ENV ICEBERG_VERSION=1.6.0
 

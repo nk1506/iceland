@@ -20,9 +20,7 @@
 
 set -e
 
-start-master.sh -p 7077
-start-worker.sh spark://spark-iceberg:7077
-start-history-server.sh
+/opt/flink/bin/start-cluster.sh
 
 # Function to calculate the default date (one week ago)
 get_default_date() {
@@ -41,9 +39,9 @@ fi
 #Download gdelt event for the date.
 sh download_gdelt_event.sh $DATE
 
-python3 ./gdelt-tables.py $DATE
+python3 ./gdelt_to_flink_iceberg.py $DATE
 
-python3 ./provisioned-tables.py
+python3 ./provisioned-table.py
 
 touch /tmp/ready
 
